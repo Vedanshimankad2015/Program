@@ -1,0 +1,26 @@
+import os
+
+filename = "codigal.txt"
+file = open(filename, "w")
+file.write("Name: Rahul\n")
+file.write("Age: 15\n")
+file.close()
+print("Write complete")
+file = open(filename, "r")
+print("\n📄 Reading file:")
+print(file.read())
+file.close()
+print("Read complete")
+file = open(filename, "a")
+file.write("City: Ahmedabad\n")
+file.close()
+print(" Append complete")
+if not os.path.exists(filename):
+    open(filename, "w").close()
+
+file = open(filename, "r+")
+print("\n📄 After append:")
+print(file.read())
+file.write("Class: 10\n")
+file.close()
+print(" Read + Write complete")
