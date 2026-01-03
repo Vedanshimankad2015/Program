@@ -2,7 +2,7 @@ import random
 
 lower_bound = 1
 upper_bound = 10
-max_attempts = 12
+max_attempts = 5
 secret_number = random.randint(lower_bound, upper_bound)
 
 
