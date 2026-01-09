@@ -95,3 +95,93 @@ for scale in range(50, 101, 2):  # 50% to 100%
 # Keep the window open
 root.mainloop()
 
+from tkinter import Tk, Canvas, Button
+from PIL import Image, ImageTk, ImageDraw, ImageFont
+
+# Window setup
+root = Tk()
+root.title("Happy Birthday Mom ❤️")
+root.geometry("1200x800")
+root.resizable(False, False)
+
+canvas = Canvas(root, width=1200, height=800, bg="#ffe4ec")
+canvas.pack()
+
+# ---------- PAGE 1 (FRONT COVER) ----------
+def show_front():
+    canvas.delete("all")
+
+    # Load mom photo
+    img = Image.open("mom.jpg").resize((500, 500))
+    tk_img = ImageTk.PhotoImage(img)
+    canvas.image = tk_img
+
+    canvas.create_image(600, 320, image=tk_img)
+
+    canvas.create_text(
+        600, 80,
+        text="Happy Birthday Mom ❤️",
+        font=("Arial", 48, "bold"),
+        fill="#d63384"
+    )
+
+    # Decorations
+    for x in range(200, 1000, 150):
+        canvas.create_text(x, 700, text="🎉", font=("Arial", 32))
+
+    open_btn = Button(
+        root,
+        text="💌 Open the Card",
+        font=("Arial", 18, "bold"),
+        bg="#ff69b4",
+        fg="white",
+        command=open_card
+    )
+    canvas.create_window(600, 620, window=open_btn)
+
+
+# ---------- PAGE 2 (INSIDE MESSAGE) ----------
+def open_card():
+    canvas.delete("all")
+
+    canvas.create_text(
+        600, 100,
+        text="💖 To the Best Mom in the World 💖",
+        font=("Arial", 40, "bold"),
+        fill="#c2185b"
+    )
+
+    message = (
+        "Thank you for your love, sacrifices,\n"
+        "and endless support in everything I do.\n\n"
+        "You are the best Mom, Wife, Daughter,\n"
+        "Sister, Friend — and my biggest strength.\n\n"
+        "May your life always be filled with\n"
+        "happiness, peace, and smiles.\n\n"
+        "Happiest Birthday, Mom 🎂"
+    )
+
+    canvas.create_text(
+        600, 360,
+        text=message,
+        font=("Arial", 24),
+        fill="#333333",
+        justify="center"
+    )
+
+    canvas.create_text(
+        900, 600,
+        text="With all my love,\nYour child 💐",
+        font=("Arial", 22, "italic"),
+        fill="#8e245f"
+    )
+
+    # Hearts decoration
+    for x in range(150, 1050, 120):
+        canvas.create_text(x, 720, text="❤️", font=("Arial", 20))
+
+
+# Start with front page
+show_front()
+
+root.mainloop()
