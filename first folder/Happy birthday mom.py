@@ -109,9 +109,9 @@ inside_window = canvas.create_window(WIDTH, 0, anchor="nw", window=inside_frame)
 
 message = (
     
-    "Dear Mom,\n\n"
-    "Wishing you a day filled with love, joy, and all the happiness you bring into our lives every day.\n\n"
-    "Thank you for being the incredible person you are. Happy Birthday!\n\n"
+    "Dear Mummy,\n\n"
+    "Wishing you a day filled with love, joy, and \n     all the happiness you bring into our lives every day.\n"
+        "Thank you for being the incredible person you are.\n   Happy Birthday!🤞💖🎂😍\n\n"
     "With all my love,\n\n"
     "Your bulbul"
 )
