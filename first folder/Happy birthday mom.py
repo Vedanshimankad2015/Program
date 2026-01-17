@@ -1,56 +1,8 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 import os
-
-# ---------------- DEBUG PRINT ----------------
-print("Program started")
-
-# ---------------- WINDOW ----------------
-root = tk.Tk()
-root.title("TEST WINDOW")
-root.geometry("600x400")
-root.configure(bg="pink")
-
-# ---------------- TEXT ----------------
-label = tk.Label(
-    root,
-    text="TKINTER IS WORKING ✅",
-    font=("Arial", 24, "bold"),
-    bg="pink",
-    fg="black"
-)
-label.pack(pady=20)
-
-# ---------------- IMAGE TEST ----------------
-img_path = os.path.join(os.path.dirname(__file__), "mom.jpeg")
-print("Looking for image at:", img_path)
-
-if os.path.exists(img_path):
-    img = Image.open(img_path)
-    img = img.resize((200, 200))
-    photo = ImageTk.PhotoImage(img)
-
-    img_label = tk.Label(root, image=photo, bg="pink")
-    img_label.image = photo
-    img_label.pack(pady=10)
-else:
-    error = tk.Label(
-        root,
-        text="IMAGE NOT FOUND ❌",
-        font=("Arial", 16),
-        bg="pink",
-        fg="red"
-    )
-    error.pack()
-
-# ---------------- RUN ----------------
-root.mainloop()
-# ---------------- DEBUG PRINT ----------------
-print("Program ended")
-import tkinter as tk
-from PIL import Image, ImageTk
-import os
 import time
+import winsound
 
 # ---------------- WINDOW ----------------
 root = tk.Tk()
@@ -66,11 +18,11 @@ PINK = "#ffe6ee"
 WHITE = "#ffffff"
 RED = "#d6336c"
 
-# ---------------- MAIN CANVAS ----------------
+# ---------------- CANVAS ----------------
 canvas = tk.Canvas(root, width=WIDTH, height=HEIGHT, highlightthickness=0)
 canvas.pack()
 
-# ---------------- FRONT PAGE FRAME ----------------
+# ---------------- FRONT PAGE ----------------
 front_frame = tk.Frame(canvas, bg=PINK, width=WIDTH, height=HEIGHT)
 front_window = canvas.create_window(0, 0, anchor="nw", window=front_frame)
 
@@ -94,64 +46,91 @@ if os.path.exists(img_path):
     img_label.image = mom_photo
     img_label.pack(pady=10)
 else:
-    error = tk.Label(
+    tk.Label(
         front_frame,
-        text="❌ mom.jpeg NOT FOUND\nPut the image in the same folder",
-        font=("Arial", 16, "bold"),
+        text="mom.jpeg NOT FOUND",
+        font=("Arial", 18),
         bg=PINK,
         fg="red"
-    )
-    error.pack(expand=True)
+    ).pack()
 
-# ---------------- INSIDE PAGE FRAME ----------------
+# ---------------- INSIDE PAGE ----------------
 inside_frame = tk.Frame(canvas, bg=WHITE, width=WIDTH, height=HEIGHT)
 inside_window = canvas.create_window(WIDTH, 0, anchor="nw", window=inside_frame)
 
 message = (
     
     "Dear Mummy,\n\n"
-    "Wishing you a day filled with love, joy, and \n     all the happiness you bring into our lives every day.\n"
-        "Thank you for being the incredible person you are.\n   Happy Birthday!🤞💖🎂😍\n\n"
-    "With all my love,\n\n"
-    "Your bulbul"
+    "Wishing you a day filled with love, joy,\n"
+    "and all the happiness you give us every day.\n\n"
+    "Happy Birthday ❤️🎂\n\n"
+    "— Your Bulbul"
 )
 
-msg_label = tk.Label(
+tk.Label(
     inside_frame,
     text=message,
     font=("Comic Sans MS", 20),
     bg=WHITE,
-    fg="#333333",
+    fg="#333",
     justify="center"
-)
-msg_label.pack(expand=True)
+).pack(expand=True)
 
-hearts = tk.Label(
+tk.Label(
     inside_frame,
     text="💖 💐 🎂 💝 🌸",
     font=("Arial", 28),
     bg=WHITE
-)
-hearts.pack(pady=20)
+).pack(pady=20)
+
+# ---------------- SONG ----------------
+SONG_PATH = os.path.join(os.path.dirname(__file__), "o_meri_maa.wav")
+
+def play_song():
+    if os.path.exists(SONG_PATH):
+        winsound.PlaySound(SONG_PATH, winsound.SND_ASYNC)
+    else:
+        print("Song file not found")
 
 # ---------------- OPEN ANIMATION ----------------
 def open_card():
-    for i in range(0, WIDTH + 1, 30):
+    play_song()
+    for _ in range(0, WIDTH, 30):
         canvas.move(front_window, -30, 0)
         canvas.move(inside_window, -30, 0)
         root.update()
         time.sleep(0.01)
 
-# ---------------- OPEN BUTTON ----------------
-open_btn = tk.Button(
+# ---------------- BUTTON ----------------
+tk.Button(
     front_frame,
     text="💌 Open the Card",
     font=("Arial", 18, "bold"),
     bg=RED,
     fg="white",
     command=open_card
-)
-open_btn.pack(pady=20)
+).pack(pady=20)
 
 # ---------------- RUN ----------------
 root.mainloop()
+from playsound import playsound
+
+SONG_PATH = r"E:\USER DATA\Downloads\o_meri_maa.mp3"
+# ↑ r"" is IMPORTANT for Windows paths
+
+print("Type 'go' and press Enter → song plays")
+print("Type 'exit' to quit")
+
+while True:
+    cmd = input(">> ").strip().lower()
+
+    if cmd == "go":
+        print("🎵 Playing song...")
+        playsound(SONG_PATH)
+
+    elif cmd == "exit":
+        print("👋 Bye")
+        break
+
+    else:
+        print("❌ Type 'go' or 'exit'")
